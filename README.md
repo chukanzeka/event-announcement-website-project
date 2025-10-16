@@ -17,8 +17,7 @@ The goal of this project was to create an event announcement website capable of:
 •	IAM Roles & Policies → Controlled secure access between AWS services (S3, SNS, Lambda).
 
 🎉 The Result
-The website now:
-•	✅ Hosts a static frontend where users can view events, subscribe via email, and create new events.
+•	✅ The website now hosts a static frontend where users can view events, subscribe via email, and create new events.
 •	✅ Stores new events in events.json (S3).
 •	✅ Triggers SNS via Lambda to send emails to all subscribers whenever a new event is added.
  
@@ -27,4 +26,5 @@ Event Announcement Webpage
 Once it was working, I wanted a better frontend design. With the help of AI, I redesigned the UI into a brighter, modern card-style layout in just minutes. Uploading the new index.html gave the project a polished, user-friendly look.
 I’d love to hear your thoughts — do you prefer the original design or the redesigned version? 
  
+
 
