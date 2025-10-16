@@ -17,11 +17,15 @@ The goal of this project was to create a simple, scalable Event Announcement Web
 
 🛠️ AWS Services Used -
 
-Amazon S3:	Hosts the static frontend and stores event data (events.json)
-Amazon SNS:	Manages email notifications and subscriber lists
-AWS Lambda:	Handles backend logic (creating events, triggering notifications)
-Amazon API Gateway:	Exposes RESTful endpoints for frontend ↔ backend communication
-IAM Roles & Policies:	Enforces secure access between AWS resources
+Amazon S3:	Hosts the static frontend and stores event data (events.json).
+
+Amazon SNS:	Manages email notifications and subscriber lists.
+
+AWS Lambda:	Handles backend logic (creating events, triggering notifications).
+
+Amazon API Gateway:	Exposes RESTful endpoints for frontend ↔ backend communication.
+
+IAM Roles & Policies:	Enforces secure access between AWS resources.
 
 🎉 The Result -
 
@@ -49,3 +53,4 @@ Author: Chuka Nzeka
 
 
 Project Type: AWS Cloud / Serverless / Frontend Integration
+
