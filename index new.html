@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Announcements</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;   /* Indigo */
+      --primary-dark: #4338ca;
+      --accent: #14b8a6;    /* Teal */
+      --bg: #f9fafb;
+      --text: #111827;
+      --muted: #6b7280;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+    header p {
+      margin: 10px 0 20px;
+      font-size: 1.1rem;
+    }
+    header button {
+      background: var(--accent);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    header button:hover {
+      background: #0d9488;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--primary-dark);
+    }
+
+    ul#events-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    ul#events-list li {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    ul#events-list li strong {
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+    }
+    ul#events-list li span.date {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 6px 0;
+    }
+    ul#events-list li p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    button.action {
+      display: block;
+      margin: 30px auto 0;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button.action:hover {
+      background: var(--primary-dark);
+    }
+
+    #create-event-form {
+      background: white;
+      margin: 30px 0;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    #create-event-form h3 {
+      margin-top: 0;
+      color: var(--primary-dark);
+    }
+    #create-event-form label {
+      font-weight: 600;
+      display: block;
+      margin: 10px 0 5px;
+    }
+    #create-event-form input,
+    #create-event-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    #create-event-form button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    #create-event-form button:hover {
+      background: #0d9488;
+    }
+
+    footer {
+      text-align: center;
+      background: #f3f4f6;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Event Announcements</h1>
+    <p>Stay tuned for the latest events and updates!</p>
+    <button onclick="subscribeToEvents()">📧 Subscribe to Events</button>
+  </header>
+
+  <div class="container">
+    <section id="events-container">
+      <h2>✨ Latest Events</h2>
+      <ul id="events-list"></ul>
+      <button class="action" onclick="showCreateEventForm()">➕ Create New Event</button>
+    </section>
+
+    <section id="create-event-form" style="display:none;">
+      <h3>Create New Event</h3>
+      <form onsubmit="submitNewEvent(event)">
+        <label for="event-title">Title</label>
+        <input type="text" id="event-title" required>
+
+        <label for="event-date">Date</label>
+        <input type="date" id="event-date" required>
+
+        <label for="event-description">Description</label>
+        <textarea id="event-description" rows="4" required></textarea>
+
+        <button type="submit">Submit Event</button>
+      </form>
+    </section>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Event Announcements. All rights reserved.
+  </footer>
+
+  <script>
+    // Load events from events.json
+    async function loadEvents() {
+      try {
+        const response = await fetch('events.json');
+        if (response.ok) {
+          const events = await response.json();
+          displayEvents(events);
+        } else {
+          console.error("Could not load events.");
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    }
+
+    function displayEvents(events) {
+      const eventsList = document.getElementById('events-list');
+      eventsList.innerHTML = '';
+      events.forEach(event => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <strong>${event.title}</strong>
+          <span class="date">${event.date}</span>
+          <p>${event.description}</p>
+        `;
+        eventsList.appendChild(li);
+      });
+    }
+
+    function showCreateEventForm() {
+      document.getElementById("create-event-form").style.display = "block";
+    }
+
+    async function submitNewEvent(e) {
+      e.preventDefault();
+      const title = document.getElementById("event-title").value;
+      const date = document.getElementById("event-date").value;
+      const description = document.getElementById("event-description").value;
+
+      const newEvent = { title, date, description };
+
+      try {
+        const response = await fetch('https://b1enn9j2vi.execute-api.us-east-1.amazonaws.com/dev/create-event', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newEvent)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert("✅ New event created successfully!");
+          e.target.reset();
+          loadEvents();
+        } else {
+          alert("❌ Failed to create new event.");
+          console.error(result);
+        }
+      } catch (error) {
+        alert("⚠️ Error creating new event.");
+        console.error("Error:", error);
+      }
+    }
+
+    async function subscribeToEvents() {
+      const email = prompt("Enter your email to subscribe:");
+      if (!email) return;
+
+      try {
+        const response = await fetch('https://b1enn9j2vi.execute-api.us-east-1.amazonaws.com/dev/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+        if (response.ok && data.message) {
+          alert("✅ " + data.message);
+        } else {
+          alert("❌ Subscription failed.");
+          console.error(data);
+        }
+      } catch (error) {
+        alert("⚠️ Error subscribing.");
+        console.error("Error:", error);
+      }
+    }
+
+    window.onload = () => {
+      document.getElementById("year").textContent = new Date().getFullYear();
+      loadEvents();
+    };
+  </script>
+</body>
+</html>
