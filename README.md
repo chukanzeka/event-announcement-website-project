@@ -1,8 +1,8 @@
 🚀 Building an Event Announcement Website on AWS
 
 📖 LinkedIn Article - https://www.linkedin.com/pulse/building-event-announcement-website-aws-lessons-from-my-chuka-nzeka--qmhxe/?trackingId=l7ft5Ub0ZCJzxeX0o7MZHw%3D%3D
----
 
+---
 📌 Project Overview -
 
 The goal of this project was to create a simple, scalable Event Announcement Website that enables users to:
@@ -57,5 +57,6 @@ Author: Chuka Nzeka
 
 
 Project Type: AWS Cloud / Serverless / Frontend Integration
+
 
 
