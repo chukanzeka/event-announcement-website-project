@@ -1,7 +1,7 @@
 🚀 Building an Event Announcement Website on AWS
 
 📖 LinkedIn Article - https://www.linkedin.com/pulse/building-event-announcement-website-aws-lessons-from-my-chuka-nzeka--qmhxe/?trackingId=l7ft5Ub0ZCJzxeX0o7MZHw%3D%3D
-
+---
 
 📌 Project Overview -
 
@@ -14,6 +14,7 @@ The goal of this project was to create a simple, scalable Event Announcement Web
 📝 Create new events through a web form
 
 ⚡ Receive real-time alerts when new events are added
+---
 
 🛠️ AWS Services Used -
 
@@ -26,6 +27,7 @@ AWS Lambda:	Handles backend logic (creating events, triggering notifications).
 Amazon API Gateway:	Exposes RESTful endpoints for frontend ↔ backend communication.
 
 IAM Roles & Policies:	Enforces secure access between AWS resources.
+---
 
 🎉 The Result -
 
@@ -37,6 +39,7 @@ New events are saved automatically to S3 (events.json).
 
 ✅ Real-Time Notifications:
 Each new event triggers SNS via Lambda, sending alert emails to all subscribers.
+---
 
 ✨ Frontend Redesign -
 
@@ -48,9 +51,11 @@ With the help of AI, the design was transformed into a brighter, card-style layo
 I’d love to hear your thoughts:
 
 Do you prefer the original design or the AI-redesigned version?
+---
 
 Author: Chuka Nzeka
 
 
 Project Type: AWS Cloud / Serverless / Frontend Integration
+
 
